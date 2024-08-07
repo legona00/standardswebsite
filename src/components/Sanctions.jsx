@@ -17,7 +17,7 @@ export default function Sanctions() {
                 const result = await response.json();
                 //Sort result data alphabetically
                 result.sort((a, b) =>
-                    a.Balance > b.Balance ? 1 : b.Balance > a.Balance ? -1 : 0
+                    a.Balance < b.Balance ? 1 : b.Balance < a.Balance ? -1 : 0
                 );
 
                 setData(result);
