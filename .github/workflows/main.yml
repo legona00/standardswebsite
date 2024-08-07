@@ -23,6 +23,12 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      - name: List root directory contents
+        run: ls -la
+
+      - name: List build directory contents
+        run: ls -la build
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
