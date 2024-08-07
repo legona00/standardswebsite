@@ -27,7 +27,7 @@ jobs:
         run: ls -la
 
       - name: List build directory contents
-        run: ls -la build
+        run: ls -la dist
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -37,4 +37,4 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./build s3://standardswebsite
+        run: aws s3 sync ./dist s3://standardswebsite
