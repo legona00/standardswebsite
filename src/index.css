@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
 
+/* Targets the highest-level parent. In this case it is the main html element */
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -14,124 +14,39 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    margin: 0;
+}
+
+html,
 body {
-    background-color: white;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("assets/tamu-background.jpg");
+    background-size: auto;
+
     margin: 0;
     min-width: 320px;
     min-height: 100vh;
 }
 
 h1 {
-    font-size: 3.2em;
-    line-height: 1.1;
+    font-size: clamp(20px, 3vw, 50px);
 }
 
 p {
     font-size: 1.45em;
     font-weight: 500;
-}
-
-button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-}
-button:hover {
-    border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
-    a:hover {
-        color: #747bff;
-    }
-    button {
-        background-color: #f9f9f9;
-    }
-}
-
-.intro-page {
-    background-image: url('./assets/tamu.jpg');
-    background-position: center;
-    background-size: cover;
-    padding-bottom: 450px;
-}
-.phiota-banner {
-    display: inline-block;
-}
-.phiota-banner img {
-    height: auto;
-    width: 60%;
-    filter: drop-shadow(0px 10px 30px black);
-}
-
-.title-text {
-    margin: 0 auto;
-    margin-top: 400px;
-    color: white;
-    width: 30%;
-    text-shadow: -60px 40px 50px black;
-}
-
-.sanctions-leaderboard {
-    background-color: white;
-    color: black;
-    width: 100%;
-    min-height: 100%;
-}
-
-.sanctions-table-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    font-family: 'Quicksand', sans-serif;
-}
-
-.sanctions-table-container table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    font-family: inherit;
-}
-
-.sanctions-table-container thead tr {
-    background-color: navy;
-    color: #ffffff;
-    font-size: 30px;
-}
-
-.sanctions-table-container th td {
-    padding: 12px, 15px;
-}
-
-.sanctions-table-container tbody tr {
-    border-bottom: 1px solid #dddddd;
-    color: black;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.sanctions-table-container tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.sanctions-table-container tbody tr:last-of-type {
-    border-bottom: 2px solid navy;
+    font-size: clamp(1px, 3vw, 20px);
 }

@@ -1,0 +1,50 @@
+.sanctionsleaderboard {
+    background-color: white;
+    color: black;
+    width: 100%;
+    min-height: 100%;
+}
+
+.sanctionstablecontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-family: "Quicksand", sans-serif;
+}
+
+.sanctionstablecontainer table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    font-family: inherit;
+    background-color: white;
+}
+
+.sanctionstablecontainer thead tr {
+    background-color: rgb(67, 0, 0);
+    color: #ffffff;
+    font-size: 30px;
+}
+
+.sanctionstablecontainer th td {
+    padding: 12px, 15px;
+}
+
+.sanctionstablecontainer tbody tr {
+    border-bottom: 1px solid #dddddd;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.sanctionstablecontainer tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.sanctionstablecontainer tbody tr:last-of-type {
+    border-bottom: 2px solid navy;
+}

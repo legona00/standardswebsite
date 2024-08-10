@@ -1,0 +1,39 @@
+.phiotabanner {
+    display: flex;
+    justify-content: flex-start;
+    align-content: space-evenly;
+    gap: 1rem;
+    flex-wrap: wrap;
+    text-align: center;
+    /* border: 10px solid black; */
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../assets/tamu.jpg");
+    background-position: center;
+    background-size: cover;
+
+    padding-top: 100px;
+    padding-bottom: 450px;
+}
+
+.phiotabanner div {
+    margin: auto;
+    flex: 1 1 auto;
+}
+
+.phiotabanner img {
+    width: 50%;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.01rem;
+    filter: drop-shadow(0.15em 0.1em 0.3em hsl(0, 98%, 19%));
+    color: #f4f0f0;
+}
+
+.text h1,
+p {
+    margin: 0;
+}

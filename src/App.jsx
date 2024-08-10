@@ -1,34 +1,29 @@
-import fraternityLogo from './assets/phi-iota-alpha-logo.png';
-import './App.css';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Sanctions from './components/Sanctions';
+import "./App.css";
+
+import RootLayout from "./pages/Root";
+import HomePage, { loader as loadSanctions } from "./pages/Home";
+import ErrorPage from "./pages/Error";
+
+//All pages have root component which contains the Nav Bar component and the children
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <RootLayout />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                index: true,
+                element: <HomePage />,
+                loader: loadSanctions,
+            },
+        ],
+    },
+]);
 
 function App() {
-    return (
-        <>
-            <div className="intro-page">
-                <div className="phiota-banner">
-                    <img
-                        src={fraternityLogo}
-                        className="logo"
-                        alt="Vite logo"
-                    />
-                </div>
-
-                <div className="title-text">
-                    <h1>
-                        <u>Welcome to Standards</u>
-                    </h1>
-                    <p>
-                        Each brother has 5 excuses per semester. Sanction
-                        amounts are decided during meetings and are enforced
-                        when a member does not fulfill an obligation
-                    </p>
-                </div>
-            </div>
-            <Sanctions />
-        </>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;
