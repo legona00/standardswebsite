@@ -5,6 +5,7 @@ import "./App.css";
 import RootLayout from "./pages/Root";
 import HomePage, { loader as loadSanctions } from "./pages/Home";
 import ErrorPage from "./pages/Error";
+import LoginPage from "./pages/Login";
 
 //All pages have root component which contains the Nav Bar component and the children
 const router = createBrowserRouter([
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
                 index: true,
                 element: <HomePage />,
                 loader: loadSanctions,
+            },
+            {
+                path: "login",
+                element: <LoginPage />,
             },
         ],
     },

@@ -21,7 +21,7 @@ export default function Sanctions({ balances }) {
                     <tbody>
                         {sortedData.map((item, index) => (
                             <tr key={index}>
-                                <td>{item.Name}</td>
+                                <td>Don {item.Name}</td>
                                 <td>{item.Balance}</td>
                             </tr>
                         ))}

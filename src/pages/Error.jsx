@@ -20,7 +20,7 @@ export default function ErrorPage() {
     return (
         <>
             <MainNavigation />
-            <div style={{ color: "black" }}>
+            <div>
                 <h1>{title}</h1>
                 <p>{message}</p>
             </div>

@@ -1,0 +1,35 @@
+.header {
+    height: 100px;
+    padding: 0 2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: hsl(0, 98%, 19%);
+    gap: 2rem;
+}
+
+.header img {
+    flex: 0 0 auto;
+    height: 70%;
+}
+
+.header nav {
+    padding-right: 100px;
+}
+
+.list {
+    display: flex;
+    gap: 1rem;
+}
+
+.list a {
+    text-decoration: none;
+    color: white;
+}
+
+.list a:hover,
+.list a.active {
+    color: gold;
+}
