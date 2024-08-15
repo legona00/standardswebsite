@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 import tamuLogo from "../assets/tamu-logo.png";
 
+import { getToken } from "../util/auth";
+
 export default function MainNavigation() {
     return (
         <header className={classes.header}>
@@ -30,6 +32,18 @@ export default function MainNavigation() {
                             Login
                         </NavLink>
                     </li>
+                    {getToken() && (
+                        <li>
+                            <NavLink
+                                to="/edit"
+                                className={({ isActive }) =>
+                                    isActive ? classes.active : undefined
+                                }
+                            >
+                                Edit
+                            </NavLink>
+                        </li>
+                    )}
                 </ul>
             </nav>
         </header>

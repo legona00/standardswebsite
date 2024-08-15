@@ -1,0 +1,46 @@
+.form {
+    max-width: 40rem;
+    margin: 2rem auto;
+    text-align: left;
+
+    background-color: rgba(0, 0, 0, 0.75); /* Black with 50% opacity */
+    padding: 20px; /* Optional: Adds space inside the div */
+    border-radius: 8px; /* Optional: Rounds the corners of the div */
+    color: #fff;
+}
+
+.form h1 {
+    font-size: 3rem;
+}
+
+.form label,
+.form input {
+    display: block;
+    width: 100%;
+    font: inherit;
+}
+
+.form label {
+    font-size: 1.25rem;
+}
+
+.form input {
+    padding: 0.25rem;
+    background-color: hsl(0, 98%, 19%);
+    font-size: 1rem;
+}
+
+.action {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.action button {
+    font: inherit;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background-color: hsl(0, 98%, 19%);
+    font-weight: bolder;
+    margin-top: 10px;
+}

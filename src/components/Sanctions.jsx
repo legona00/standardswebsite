@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
-
 import classes from "./Sanctions.module.css";
 
 import { sortStandards } from "../util/standards";
 
-export default function Sanctions({ balances }) {
-    const sortedData = sortStandards(balances);
-
+export default function Sanctions({ title, children }) {
     return (
         <div className={classes.sanctionleaderboard}>
-            <h1>Sanctions Leaderboard</h1>
+            <h1>{title}</h1>
             <div className={classes.sanctionstablecontainer}>
                 <table>
                     <thead>
@@ -18,14 +14,7 @@ export default function Sanctions({ balances }) {
                             <th>Balance</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {sortedData.map((item, index) => (
-                            <tr key={index}>
-                                <td>Don {item.Name}</td>
-                                <td>{item.Balance}</td>
-                            </tr>
-                        ))}
-                    </tbody>
+                    <tbody>{children}</tbody>
                 </table>
             </div>
         </div>

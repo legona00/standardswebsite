@@ -1,19 +1,30 @@
-import { json, useLoaderData, Await } from "react-router-dom";
+import { json, useRouteLoaderData, Await } from "react-router-dom";
 import { Suspense } from "react";
 
 import HomeBanner from "../components/HomeBanner";
 import Sanctions from "../components/Sanctions";
+import { sortStandards } from "../util/standards";
 
 export default function HomePage() {
-    const sanctionsBalances = useLoaderData();
+    const sortedSanctionsBalances = useRouteLoaderData("root");
 
     return (
         <>
             <HomeBanner />
             <Suspense fallback={<p>Loading...</p>}>
-                <Await resolve={sanctionsBalances}>
+                <Await resolve={sortedSanctionsBalances}>
                     {loadedSanctionsBalances => (
-                        <Sanctions balances={loadedSanctionsBalances} />
+                        <Sanctions
+                            balances={loadedSanctionsBalances}
+                            title="Sanctions Leaderboard"
+                        >
+                            {sortedSanctionsBalances.map((item, index) => (
+                                <tr key={index}>
+                                    <td>Don {item.Name}</td>
+                                    <td>${item.Balance}</td>
+                                </tr>
+                            ))}
+                        </Sanctions>
                     )}
                 </Await>
             </Suspense>
@@ -22,7 +33,7 @@ export default function HomePage() {
 }
 
 //Load data for Contact information for HomeBanner and for Sanctions table
-export async function loader({ request, params }) {
+export async function loader() {
     const response = await fetch(
         "https://1ydhatqodd.execute-api.us-east-2.amazonaws.com/items"
     );
@@ -36,6 +47,7 @@ export async function loader({ request, params }) {
         );
     } else {
         const resData = await response.json();
-        return resData;
+        const sortedData = sortStandards(resData);
+        return sortedData;
     }
 }
