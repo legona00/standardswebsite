@@ -22,6 +22,7 @@ export default function RootLayout() {
 
         const tokenDuration = getTokenDuration();
 
+        console.log("SET TIMER", tokenDuration);
         setTimeout(() => {
             loginExpired();
         }, tokenDuration);

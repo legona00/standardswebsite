@@ -14,8 +14,10 @@ export async function action({ request }) {
         const rowsData = JSON.parse(rows);
         //Iterate through changed values to calculate new balance and send request to API
         for (const row of rowsData) {
-            const { name, balance, operation, amount } = row;
+            const { name, operation, amount } = row;
             let newBalance;
+
+            const balance = parseInt(row.balance);
 
             if (operation === "add") {
                 newBalance = balance + amount;

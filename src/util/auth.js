@@ -28,7 +28,7 @@ export function getToken() {
     }
 
     const tokenDuration = getTokenDuration();
-    if (tokenDuration < 0) {
+    if (tokenDuration <= 0) {
         return "EXPIRED";
     }
 
@@ -48,8 +48,10 @@ export function getExpiration() {
 //Returns time left until token expiration
 export function getTokenDuration() {
     const storedExpiration = localStorage.getItem("expiration");
-    const duration = storedExpiration - Date.now();
-    return duration;
+    const storedExpDate = new Date(storedExpiration);
+    const currentTime = new Date();
+    const duration = storedExpDate.getTime() - currentTime.getTime();
+    return duration > 0 ? duration : 0;
 }
 
 export function loginExpired() {

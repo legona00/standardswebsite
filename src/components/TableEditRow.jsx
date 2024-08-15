@@ -19,7 +19,11 @@ export default function TableEditRow({
     function handleAmountChange(event) {
         const value =
             event.target.value === "" ? 0 : parseFloat(event.target.value);
-        onRowChange(index, operation, value);
+
+        if (/^\d*$/.test(event.target.value)) {
+            onRowChange(index, operation, value);
+        }
+        console.log(value);
     }
 
     return (
