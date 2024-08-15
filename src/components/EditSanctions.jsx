@@ -22,6 +22,7 @@ export default function EditSanctions({ balances }) {
             balance: item.Balance,
             operation: "add",
             amount: 0,
+            error: "",
         }))
     );
     // console.log(rowsState);

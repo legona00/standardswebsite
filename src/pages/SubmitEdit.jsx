@@ -27,8 +27,10 @@ export async function action({ request }) {
 
             if (newBalance < 0) {
                 throw json(
-                    { message: "Updated balance is < 0" },
-                    { status: 400 }
+                    {
+                        message: `Updated balance for Don ${name} is less than 0. Please enter a new value`,
+                    },
+                    { status: 500 }
                 );
             } else if (newBalance === 0) {
                 newBalance = "0";
