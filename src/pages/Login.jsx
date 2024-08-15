@@ -1,12 +1,14 @@
 import { json, redirect } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
-import { setToken } from "../util/auth";
+import { setTokenAndExpiration } from "../util/auth";
 
 export default function LoginPage() {
     return <LoginForm />;
 }
 
 export async function action({ request }) {
+    //If the token already exists, just return, do not need to redo login
+
     const data = await request.formData();
 
     const authData = {
@@ -38,8 +40,9 @@ export async function action({ request }) {
         }
 
         const resData = await response.json();
-
-        setToken(resData.token);
+        const token = resData.token;
+        const expiration = resData.expiresAt;
+        setTokenAndExpiration(token, expiration);
     } catch (error) {
         console.log(error);
     }

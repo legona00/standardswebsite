@@ -6,6 +6,8 @@ import tamuLogo from "../assets/tamu-logo.png";
 import { getToken } from "../util/auth";
 
 export default function MainNavigation() {
+    const token = getToken();
+
     return (
         <header className={classes.header}>
             <img src={tamuLogo} alt="Texas A&M Logo" />
@@ -22,17 +24,19 @@ export default function MainNavigation() {
                             Home
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink
-                            to="/login"
-                            className={({ isActive }) =>
-                                isActive ? classes.active : undefined
-                            }
-                        >
-                            Login
-                        </NavLink>
-                    </li>
-                    {getToken() && (
+                    {!token && (
+                        <li>
+                            <NavLink
+                                to="/login"
+                                className={({ isActive }) =>
+                                    isActive ? classes.active : undefined
+                                }
+                            >
+                                Login
+                            </NavLink>
+                        </li>
+                    )}
+                    {token && (
                         <li>
                             <NavLink
                                 to="/edit"

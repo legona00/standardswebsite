@@ -1,25 +1,23 @@
 import { redirect } from "react-router-dom";
 
 //Saves token and expiration date to localStorage
-export function setToken(token) {
+//Expiration passed as int/string
+export function setTokenAndExpiration(token, expiration) {
+    if (!token) {
+        return null;
+    }
+    const expirationDate = new Date(expiration);
+
+    localStorage.setItem("expiration", expirationDate);
     localStorage.setItem("token", token);
 
-    const expiration = new Date();
-    expiration.setHours(expiration.getHours() + 1);
-    localStorage.setItem("expiration", expiration.toISOString());
+    const remainingTime = expiration - Date.now();
 
+    //Create timer to remove values from browser memory
     setTimeout(() => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("expiration");
-    }, 3600000);
-}
-
-export function getTokenDuration() {
-    const storedExpirationDate = localStorage.getItem("expiration");
-    const expirationDate = new Date(storedExpirationDate);
-    const now = new Date();
-    const duration = expirationDate.getTime() - now.getTime();
-    return duration;
+        loginExpired();
+    }, remainingTime);
+    console.log(remainingTime);
 }
 
 export function getToken() {
@@ -37,10 +35,43 @@ export function getToken() {
     return token;
 }
 
+export function getExpiration() {
+    const expiration = localStorage.getItem("expiration");
+
+    if (!expiration) {
+        return null;
+    }
+
+    return expiration;
+}
+
+//Returns time left until token expiration
+export function getTokenDuration() {
+    const storedExpiration = localStorage.getItem("expiration");
+    const duration = storedExpiration - Date.now();
+    return duration;
+}
+
+export function loginExpired() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("expiration");
+    window.location.reload();
+}
+
+//Loaders for edit and login pages ensuring only one is visible at a time
 export function checkAuthLoader() {
     const token = getToken();
     if (!token) {
         return redirect("/login");
+    }
+
+    return null;
+}
+
+export function checkLoginLoader() {
+    const token = getToken();
+    if (token) {
+        return redirect("/edit");
     }
 
     return null;

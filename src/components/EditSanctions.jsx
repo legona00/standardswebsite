@@ -42,9 +42,13 @@ export default function EditSanctions({ balances }) {
         //Get rid of items with value of 0, nothing will change
         const changedData = rowsState.filter(obj => obj.amount !== 0);
 
-        formData.append("rowsState", JSON.stringify(changedData));
+        if (changedData.length === 0) {
+            window.confirm("Please enter an amount to add/subtract to balance");
+        } else {
+            formData.append("rowsState", JSON.stringify(changedData));
 
-        submit(formData, { action: "/submit", method: "PUT" });
+            submit(formData, { action: "/submit", method: "PUT" });
+        }
     }
 
     return (

@@ -12,7 +12,6 @@ export default function TableEditRow({
 }) {
     //Switch between adding and subtracting balance
     function handleOperationChange(event) {
-        console.log("OP CHANGE: ", event.target.value);
         onRowChange(index, event.target.value, amount);
     }
 

@@ -13,7 +13,7 @@ import LoginPage, { action as loginAction } from "./pages/Login";
 import EditPage from "./pages/Edit";
 import { action as submitEditAction } from "./pages/SubmitEdit";
 
-import { checkAuthLoader } from "./util/auth";
+import { checkAuthLoader, checkLoginLoader } from "./util/auth";
 
 //All pages have root component which contains the Nav Bar component and the children
 const router = createBrowserRouter([
@@ -31,6 +31,7 @@ const router = createBrowserRouter([
             {
                 path: "login",
                 action: loginAction,
+                loader: checkLoginLoader,
                 element: <LoginPage />,
             },
             {

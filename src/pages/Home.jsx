@@ -41,7 +41,7 @@ export async function loader() {
     if (!response.ok) {
         throw json(
             {
-                message: "Could not sanction balances",
+                message: "Could not get sanction balances",
             },
             { status: 500 }
         );
