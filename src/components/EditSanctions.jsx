@@ -14,6 +14,7 @@ import Sanctions from "./Sanctions";
 
 export default function EditSanctions({ balances }) {
     const submit = useSubmit();
+    const [emailChecked, setEmailChecked] = useState(false);
 
     //State to store the updated sanction balances from the Table Rows
     const [rowsState, setRowsState] = useState(
@@ -35,6 +36,10 @@ export default function EditSanctions({ balances }) {
         });
     }
 
+    function handleEmailCheck() {
+        setEmailChecked(prev => !prev);
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
 
@@ -47,10 +52,13 @@ export default function EditSanctions({ balances }) {
             window.confirm("Please enter an amount to add/subtract to balance");
         } else {
             formData.append("rowsState", JSON.stringify(changedData));
+            formData.append("emailChecked", JSON.stringify(emailChecked));
 
             submit(formData, { action: "/submit", method: "PUT" });
         }
     }
+
+    console.log(emailChecked);
 
     return (
         <>
@@ -69,20 +77,21 @@ export default function EditSanctions({ balances }) {
                             onRowChange={handleRowChange}
                         />
                     ))}
+                    <tr>
+                        <td className={classes.checkbox}>
+                            <input
+                                type="checkbox"
+                                onChange={handleEmailCheck}
+                            />
+                            <p>Notify Sanctions?</p>
+                        </td>
+                        <td></td>
+                        <td>
+                            <button type="submit">Save Balance Changes</button>
+                        </td>
+                    </tr>
                 </Sanctions>
-                <button type="submit">Save Balance Changes</button>
             </Form>
         </>
     );
 }
-
-//VALUES PASSED IN
-//-----------------
-//PUT:
-//  - Array of selected names
-//  - Balance to add to all
-//POST:
-//  - Name
-//  - Balance
-//DELETE:
-//  - Name

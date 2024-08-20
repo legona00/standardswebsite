@@ -24,5 +24,15 @@
     text-align: left;
 }
 
-.submit {
+.bottomRow {
+    align-items: center;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.checkbox {
+    align-items: center;
+    display: flex;
 }

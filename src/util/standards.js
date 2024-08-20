@@ -6,6 +6,7 @@ export function sortStandards(balances) {
         return a.Name.localeCompare(b.Name);
     });
 
+    console.log(sorted);
     return sorted;
 }
 

@@ -5,6 +5,7 @@ export async function action({ request }) {
     //Check for PUT
     const method = request.method;
     const data = await request.formData();
+    const email = data.get("emailChecked");
     const token = getToken();
 
     let successString = [];
@@ -63,10 +64,15 @@ export async function action({ request }) {
                 ...successString,
                 `Updated balance of Don ${name} to ${newBalance}\n`,
             ];
+
+            //TODO Now send email if the operation is add and the email is checked
+            if (operation === "add" && email) {
+                const subject = "Sanction Statement";
+                const emailBody = `Saludos Don ${name}\n\n You have`;
+            }
         }
 
         //All request were done successfully
-        console.log(successString);
         window.confirm(successString);
         window.location.reload();
     }
