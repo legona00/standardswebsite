@@ -2,7 +2,8 @@ import classes from "./Sanctions.module.css";
 
 import { sortStandards } from "../util/standards";
 
-export default function Sanctions({ title, children }) {
+//otherTitles allows to add other columns and provide a title for them, will be passed as an array
+export default function Sanctions({ title, children, rowTitles }) {
     return (
         <div className={classes.sanctionleaderboard}>
             <h1>{title}</h1>
@@ -10,8 +11,10 @@ export default function Sanctions({ title, children }) {
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Balance</th>
+                            {rowTitles &&
+                                rowTitles.map(title => (
+                                    <th key={title}>{title}</th>
+                                ))}
                         </tr>
                     </thead>
                     <tbody>{children}</tbody>

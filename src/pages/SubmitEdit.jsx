@@ -6,6 +6,8 @@ export async function action({ request }) {
     const method = request.method;
     const data = await request.formData();
     const email = data.get("emailChecked");
+    const amount = parseInt(data.get("amount"));
+    const operation = data.get("operation");
     const token = getToken();
 
     let successString = [];
@@ -15,15 +17,16 @@ export async function action({ request }) {
         const rowsData = JSON.parse(rows);
         //Iterate through changed values to calculate new balance and send request to API
         for (const row of rowsData) {
-            const { name, operation, amount } = row;
+            const { name, balance } = row;
+
             let newBalance;
 
-            const balance = parseInt(row.balance);
+            const balanceInt = parseInt(balance);
 
-            if (operation === "add") {
-                newBalance = balance + amount;
-            } else if (operation === "sub") {
-                newBalance = balance - amount;
+            if (operation == "add") {
+                newBalance = balanceInt + amount;
+            } else if (operation == "sub") {
+                newBalance = balanceInt - amount;
             }
 
             if (newBalance < 0) {

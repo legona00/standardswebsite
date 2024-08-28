@@ -17,6 +17,7 @@ export default function HomePage() {
                         <Sanctions
                             balances={loadedSanctionsBalances}
                             title="Sanctions Leaderboard"
+                            rowTitles={["Name", "Balance"]}
                         >
                             {sortedSanctionsBalances.map((item, index) => (
                                 <tr key={index}>
