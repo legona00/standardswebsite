@@ -1,0 +1,34 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Quicksand", sans-serif;
+    margin: 2rem auto;
+    max-width: 50%;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    padding-bottom: 20px;
+}
+
+.inputContainer {
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+}
+
+.inputContainer input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#reason {
+    height: 100px;
+}

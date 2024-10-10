@@ -30,8 +30,8 @@
     font-size: 30px;
 }
 
-.sanctionstablecontainer th td {
-    padding: 12px, 15px;
+.sanctionstablecontainer thead th {
+    padding: 0 1rem;
 }
 
 .sanctionstablecontainer tbody tr {
