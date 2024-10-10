@@ -1,105 +1,131 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react';
 import {
-    Form,
-    json,
-    redirect,
-    useActionData,
-    useSubmit,
-} from "react-router-dom";
+   Form,
+   json,
+   redirect,
+   useActionData,
+   useSubmit,
+} from 'react-router-dom';
 
-import TableEditRow from "./TableEditRow";
+import EditSanctionsRow from './EditSanctionsRow';
 
-import classes from "./EditSanctions.module.css";
-import Sanctions from "./Sanctions";
+import classes from './Edit.module.css';
+import Sanctions from './Sanctions';
 
-import { checkValidChange } from "../util/standards";
+import { checkValidChange } from '../util/standards';
+import EmailForm from './EmailForm';
 
 export default function EditSanctions({ balances }) {
-    const submit = useSubmit();
-    const [emailChecked, setEmailChecked] = useState(false);
-    const [amount, setAmount] = useState(0);
-    const [operation, setOperation] = useState("add");
+   //Data for users
+   const submit = useSubmit();
+   const [amount, setAmount] = useState(0);
+   const [operation, setOperation] = useState('add');
 
-    //State to store the updated sanction balances from the Table Rows
-    const [rowsState, setRowsState] = useState(
-        balances.map(item => ({
-            name: item.Name,
-            balance: item.Balance,
-            selected: false,
-        }))
-    );
+   //Data for email component
+   const [emailChecked, setEmailChecked] = useState(false);
+   const [emailData, setEmailData] = useState({ date: '', reason: '' });
 
-    function handleRowChange(index, selected) {
-        setRowsState(prevState => {
-            const updatedRows = [...prevState];
-            updatedRows[index] = { ...updatedRows[index], selected };
-            return updatedRows;
-        });
-    }
+   //State to store the updated sanction balances from the Table Rows
+   const [rowsState, setRowsState] = useState(
+      balances.map((item) => ({
+         name: item.Name,
+         balance: item.Balance,
+         email: item.email,
+         excuses: item.Excuses,
+         selected: false,
+      }))
+   );
 
-    function handleEmailCheck() {
-        setEmailChecked(prev => !prev);
-    }
+   //Check if request is loading to disable button
+   const [isLoading, setIsLoading] = useState(false);
 
-    function handleOperationChange() {
-        setOperation(prev => (prev === "add" ? "sub" : "add"));
-    }
+   function updateEmailData(name, value) {
+      setEmailData((prev) => ({
+         ...prev,
+         [name]: value,
+      }));
+      console.log(emailData);
+   }
 
-    //Save the value we will be adding/subtracting to balance, TODO check if new Balance is < 0 and prevent this from being an input
-    function handleAmountChange(event) {
-        const value =
-            event.target.value === "" ? 0 : parseFloat(event.target.value);
+   function handleRowChange(index, selected) {
+      setRowsState((prevState) => {
+         const updatedRows = [...prevState];
+         updatedRows[index] = { ...updatedRows[index], selected };
+         return updatedRows;
+      });
+   }
 
-        setAmount(value);
-    }
+   function handleEmailCheck() {
+      setEmailChecked((prev) => !prev);
+   }
 
-    async function handleSubmitBalanceChange(event) {
-        event.preventDefault();
+   function handleOperationChange() {
+      setOperation((prev) => (prev === 'add' ? 'sub' : 'add'));
+   }
 
-        const formData = new FormData(event.target);
+   //Save the value we will be adding/subtracting to balance, TODO check if new Balance is < 0 and prevent this from being an input
+   function handleAmountChange(event) {
+      const value =
+         event.target.value === '' ? 0 : parseFloat(event.target.value);
 
-        //Get rid of items with value of 0, nothing will change
-        const changedData = rowsState.filter(obj => obj.selected);
+      setAmount(value);
+   }
 
-        if (changedData.length === 0) {
-            window.confirm(
-                "Please select a brother to apply balance change to"
-            );
-        } else if (amount <= 0) {
-            window.confirm("Please enter an amount to add/subtract to balance");
-        } else {
-            //Check if any operations result in balances < 0
-            const invalidChanges = checkValidChange(
-                changedData,
-                operation,
-                amount
-            );
+   function handleSubmitBalanceChange(event) {
+      setIsLoading(true);
+      console.log(isLoading);
+      event.preventDefault();
 
-            if (invalidChanges.length > 0) {
-                let errorString = "";
-                invalidChanges.forEach(element => {
-                    errorString =
-                        errorString +
-                        `Operation results in balance < 0 for Don ${element.name}\n`;
-                });
+      const formData = new FormData(event.target);
 
-                window.confirm(errorString);
-            } else {
-                formData.append("rowsState", JSON.stringify(changedData));
-                formData.append("emailChecked", JSON.stringify(emailChecked));
-                formData.append("amount", JSON.stringify(amount));
-                formData.append("operation", operation);
+      //Get rid of items with value of 0, nothing will change
+      const changedData = rowsState.filter((obj) => obj.selected);
 
-                console.log(formData.get("rowsState"));
+      if (changedData.length === 0) {
+         window.confirm('Please select a brother to apply balance change to');
+      } else if (amount <= 0) {
+         window.confirm('Please enter an amount to add/subtract to balance');
+      } else {
+         //Check if any operations result in balances < 0
+         const invalidChanges = checkValidChange(
+            changedData,
+            operation,
+            amount
+         );
 
-                submit(formData, { action: "/submit", method: "PUT" });
+         if (invalidChanges.length > 0) {
+            let errorString = '';
+            invalidChanges.forEach((element) => {
+               errorString =
+                  errorString +
+                  `Operation results in balance < 0 for Don ${element.name}\n`;
+            });
+
+            window.confirm(errorString);
+         } else {
+            //Notify user that email will not be sent for subtract operation
+            if (emailChecked && operation === 'sub') {
+               window.confirm(
+                  'Email will not be sent when removing from sanction balance'
+               );
             }
-        }
-    }
 
-    return (
-        <>
-            {/* 
+            formData.append('rowsState', JSON.stringify(changedData));
+            formData.append('emailChecked', JSON.stringify(emailChecked));
+            formData.append('amount', JSON.stringify(amount));
+            formData.append('operation', operation);
+            formData.append('date', JSON.stringify(emailData.date));
+            formData.append('reason', JSON.stringify(emailData.reason));
+
+            submit(formData, { action: '/submit', method: 'PUT' });
+         }
+      }
+      setIsLoading(false);
+   }
+
+   return (
+      <>
+         {/* 
                 Can only add a single sanction to selected users, the row will consists of:
                 NAME | BALANCE | CHECKMARK
                 Bottom row will have: 
@@ -107,55 +133,65 @@ export default function EditSanctions({ balances }) {
                 ADD/SUB | AMOUNT | SEND EMAIL? | SUBMIT
 
             */}
-            <Form method="PUT" onSubmit={handleSubmitBalanceChange}>
-                <Sanctions
-                    title="Edit Sanctions"
-                    rowTitles={["Name", "Balance", "Apply Change?"]}
-                >
-                    {rowsState.map((item, index) => (
-                        <TableEditRow
-                            key={index}
-                            index={index}
-                            name={item.name}
-                            balance={item.balance}
-                            onRowChange={handleRowChange}
-                        />
-                    ))}
-                    <tr>
-                        <td>
-                            <select
-                                value={operation}
-                                onChange={handleOperationChange}
-                            >
-                                <option value="add">Add</option>
-                                <option value="sub">Subtract</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input
-                                type="number"
-                                value={amount === 0 ? "" : amount}
-                                onChange={handleAmountChange}
-                                placeholder="Amount"
-                                min="0"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className={classes.checkbox}>
-                            <input
-                                type="checkbox"
-                                onChange={handleEmailCheck}
-                            />
-                            <p>Notify Sanctions?</p>
-                        </td>
-                        <td></td>
-                        <td>
-                            <button type="submit">Save Balance Changes</button>
-                        </td>
-                    </tr>
-                </Sanctions>
-            </Form>
-        </>
-    );
+         <Form method="PUT" onSubmit={handleSubmitBalanceChange}>
+            <Sanctions
+               title="Edit Sanctions"
+               rowTitles={['Name', 'Balance', 'Apply Change?']}
+            >
+               {rowsState.map((item, index) => (
+                  <EditSanctionsRow
+                     key={index}
+                     index={index}
+                     name={item.name}
+                     balance={item.balance}
+                     onRowChange={handleRowChange}
+                  />
+               ))}
+               <tr>
+                  <td>
+                     <select value={operation} onChange={handleOperationChange}>
+                        <option value="add">Add</option>
+                        <option value="sub">Subtract</option>
+                     </select>
+                  </td>
+                  <td>
+                     <input
+                        type="number"
+                        value={amount === 0 ? '' : amount}
+                        onChange={handleAmountChange}
+                        placeholder="Amount"
+                        min="0"
+                     />
+                  </td>
+               </tr>
+               <tr>
+                  <td className={classes.checkbox}>
+                     <input type="checkbox" onChange={handleEmailCheck} />
+                     <p>Notify Sanctions?</p>
+                  </td>
+                  <td></td>
+                  <td>
+                     {!emailChecked && (
+                        <button type="submit" disabled={isLoading}>
+                           {isLoading ? 'Loading...' : 'Save Balance Changes'}
+                        </button>
+                     )}
+                  </td>
+               </tr>
+            </Sanctions>
+            {emailChecked && (
+               <EmailForm
+                  emailData={emailData}
+                  updateEmailData={updateEmailData}
+               >
+                  {emailChecked && (
+                     <button type="submit" disabled={isLoading}>
+                        {isLoading ? 'Loading...' : 'Save Balance Changes'}
+                     </button>
+                  )}
+               </EmailForm>
+            )}
+         </Form>
+      </>
+   );
 }

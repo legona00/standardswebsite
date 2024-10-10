@@ -6,7 +6,6 @@ export function sortStandards(balances) {
         return a.Name.localeCompare(b.Name);
     });
 
-    console.log(sorted);
     return sorted;
 }
 
@@ -26,7 +25,6 @@ export function checkValidChange(changedRows, operation, amount) {
     if (operation === "sub") {
         for (let i = 0; i < changedRows.length; i++) {
             const updatedBalance = changedRows[i].balance - amount;
-            console.log(changedRows[i], updatedBalance);
             if (updatedBalance < 0) {
                 invalidBalances = [
                     ...invalidBalances,
