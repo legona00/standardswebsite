@@ -7,7 +7,13 @@ export default function EditBrothersRow({
     deleteRow,
 }) {
     function handleDelete() {
-        deleteRow(index);
+        const confirmation = window.confirm(
+            `Are you sure you want to delete ${name}?`
+        );
+
+        if (confirmation) {
+            deleteRow(index);
+        }
     }
 
     return (
