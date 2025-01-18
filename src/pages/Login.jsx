@@ -43,6 +43,8 @@ export async function action({ request }) {
         const token = resData.token;
         const expiration = resData.expiresAt;
         setTokenAndExpiration(token, expiration);
+
+        window.location.reload();
     } catch (error) {
         console.log(error);
     }
