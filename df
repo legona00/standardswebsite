@@ -1,0 +1,23 @@
+[33m285ead4[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m Debugging email request
+[33m1e0e18e[m Merge pull request #1 from legona00/develop
+[33m7bc174e[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m Added excuses and changing excuses. Can now send emails automatically
+[33m61fb2fc[m Updating Edit page. Changed from individual operations per submit to only being able to perform a single amount change on multiple users. TODO: Impelment email section
+[33mf5b1f80[m Updated edit UI and added notify sanctions button. Still not functional
+[33m792b1ab[m error handling for when newBalance is < 0
+[33mb2b34c6[m Fixed token and prevent negative numbers from input
+[33m82997f1[m Able to update balances from the edit page. Added automatic token removal
+[33m3e71d58[m Added edit page which is just version of sanctions table with ability to change values
+[33m133aca7[m Implemented navigation bar
+[33m806fd51[m Added React Router functionality. Fixed formatting for home page
+[33m70519a2[m Merge branch 'main' of github.com:legona00/standardswebsite
+[33m3c293b5[m sort by sanction balance descending
+[33me2114a3[m Update main.yml
+[33m298b4d2[m Update main.yml
+[33mfab135f[m sort by sanction balance descending
+[33m35be52e[m Merge branch 'main' of github.com:legona00/standardswebsite
+[33m226e59c[m sort by sanction balance descending
+[33m48e5a66[m Update main.yml
+[33m199cc8e[m Update main.yml
+[33m080fb79[m Update main.yml
+[33m981d9fb[m Create main.yml
+[33mfb047fc[m adding initial files

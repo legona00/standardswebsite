@@ -62,8 +62,6 @@ export async function action({ request }) {
                 }
             );
 
-            console.log(await response.json());
-
             if (!response.ok) {
                 throw json(
                     {
@@ -80,7 +78,7 @@ export async function action({ request }) {
             ];
 
             //TODO Now send email if the operation is add and the email is checked
-            if (operation === "add" && emailChecked === true) {
+            if (operation === "add" && emailChecked) {
                 const subject = "Sanction Statement";
                 const emailBody = `Saludos Hermano,\n\nUnfortunately you have been sanctioned $${amount}. \nReason: ${reason} on ${date}\nPlease reach out to me if you have any questions regarding your sanction or would like to appeal.\n\nSPSJ,\nVP of Standards: Carlos Bernal\ntamufiastandards@gmail.com | (346) 218-4160\n`;
 

@@ -44,7 +44,6 @@ export default function EditSanctions({ balances }) {
             ...prev,
             [name]: value,
         }));
-        console.log(emailData);
     }
 
     function handleRowChange(index, selected) {
@@ -73,7 +72,6 @@ export default function EditSanctions({ balances }) {
 
     function handleSubmitBalanceChange(event) {
         setIsLoading(true);
-        console.log(isLoading);
         event.preventDefault();
 
         const formData = new FormData(event.target);

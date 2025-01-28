@@ -18,7 +18,6 @@ export default function EditBrothers({ balances }) {
     }
 
     async function deleteRow(index) {
-        console.log(balances[index]);
         const response = await fetch(
             `https://1ydhatqodd.execute-api.us-east-2.amazonaws.com/items/${balances[index].Name}`,
             {
@@ -35,7 +34,6 @@ export default function EditBrothers({ balances }) {
             throw new Error("Could not delete row");
         }
 
-        console.log(await response.json());
         window.location.reload();
     }
 
