@@ -14,9 +14,9 @@ export default function HomeBanner() {
             </div>
 
             <div className={classes.text}>
-                <h1>VP of Standards: Carlos Bernal</h1>
-                <p>Phone: {"(346) 218-4160"}</p>
-                <p>CashApp: $CarlosFBJ</p>
+                <h1>VP of Standards: John C. Muñoz</h1>
+                <p>Phone: {"(956) 335-7791"}</p>
+                <p>CashApp: $JohnCMunoz</p>
             </div>
         </div>
     );
