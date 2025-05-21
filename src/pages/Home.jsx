@@ -3,7 +3,6 @@ import { Suspense } from "react";
 
 import HomeBanner from "../components/HomeBanner";
 import Sanctions from "../components/Sanctions";
-import { sortStandards } from "../util/standards";
 
 export default function HomePage() {
     const sortedSanctionsBalances = useRouteLoaderData("root");
@@ -41,7 +40,15 @@ export async function loader() {
         "https://1ydhatqodd.execute-api.us-east-2.amazonaws.com/vpstandards"
     );
 
-    const b = await res.json();
-
-    return b[0];
+    if (!res.ok) {
+        throw json(
+            {
+                message: "Could not get VP data",
+            },
+            { status: 500 }
+        );
+    } else {
+        const b = await res.json();
+        return b[0];
+    }
 }

@@ -1,12 +1,24 @@
 import classes from "./HomeBanner.module.css";
 
+import { useState, useEffect } from "react";
+
 import fraternityLogo from "../assets/phi-iota-alpha-logo.png";
 import { useLoaderData } from "react-router-dom";
 
 //This will contain the image and the VP of Standards payment information
 export default function HomeBanner() {
     const data = useLoaderData();
-    console.log(data);
+    const [currentVP, setCurrentVP] = useState(() => {
+        const saved = localStorage.getItem("currentVP");
+        return saved ? JSON.parse(saved) : null;
+    });
+
+    useEffect(() => {
+        setCurrentVP(data);
+        localStorage.setItem("currentVP", JSON.stringify(data));
+    }, [data]);
+
+    console.log(currentVP);
 
     return (
         <div className={classes.phiotabanner}>
@@ -18,9 +30,12 @@ export default function HomeBanner() {
             </div>
 
             <div className={classes.text}>
-                <h1>VP of Standards: John C. Muñoz</h1>
-                <p>Phone: {"(956) 335-7791"}</p>
-                <p>CashApp: $JohnCMunoz</p>
+                <h1>VP of Standards: Don {currentVP.Name}</h1>
+                <p>Phone Number: {currentVP.phoneNumber}</p>
+                {currentVP.cashappTag && (
+                    <p>CashApp: ${currentVP.cashappTag}</p>
+                )}
+                {currentVP.venmoTag && <p>Venmo: @{currentVP.venmoTag}</p>}
             </div>
         </div>
     );

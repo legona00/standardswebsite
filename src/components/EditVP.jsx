@@ -1,6 +1,10 @@
+import { useLoaderData } from "react-router-dom";
 import Sanctions from "./Sanctions";
 
 export default function EditVP({ balances }) {
+    const data = useLoaderData();
+    console.log(data);
+
     return (
         <>
             <Sanctions

@@ -65,6 +65,8 @@ const router = createBrowserRouter([
             },
             {
                 path: "transition-power",
+                loader: loadVP,
+                id: "transtionPower",
                 element: <EditVPPage />,
             },
         ],
