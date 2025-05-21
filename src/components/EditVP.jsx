@@ -1,9 +1,8 @@
-import { useLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Sanctions from "./Sanctions";
 
 export default function EditVP({ balances }) {
-    const data = useLoaderData();
-    console.log(data);
+    const navigate = useNavigate();
 
     return (
         <>
@@ -14,6 +13,11 @@ export default function EditVP({ balances }) {
                 {balances.map((item, index) => (
                     <tr key={index}>
                         <td>Don {item.Name}</td>
+                        <td>
+                            <button onClick={() => navigate(`${item.Name}`)}>
+                                &#x2713;
+                            </button>
+                        </td>
                     </tr>
                 ))}
             </Sanctions>

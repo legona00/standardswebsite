@@ -30,6 +30,7 @@ export default function HomeBanner() {
             </div>
 
             <div className={classes.text}>
+                {/* (956) 335-7791  JohnCMunoz*/}
                 <h1>VP of Standards: Don {currentVP.Name}</h1>
                 <p>Phone Number: {currentVP.phoneNumber}</p>
                 {currentVP.cashappTag && (

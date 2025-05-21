@@ -11,6 +11,11 @@ import HomePage, { loader as loadVP } from "./pages/Home";
 import ErrorPage from "./pages/Error";
 import LoginPage, { action as loginAction } from "./pages/Login";
 import EditSanctionsPage from "./pages/EditSanctions";
+import TransitionPowerPage from "./pages/TransitionPowerPage";
+import ChangeVP, {
+    loader as loadMemberVP,
+    action as changeVPAction,
+} from "./pages/ChangeVP";
 
 import { action as submitBalanceAction } from "./pages/SubmitBalanceEdit";
 import { action as submitExcuseAction } from "./pages/SubmitExcuseEdit";
@@ -65,9 +70,21 @@ const router = createBrowserRouter([
             },
             {
                 path: "transition-power",
-                loader: loadVP,
                 id: "transtionPower",
-                element: <EditVPPage />,
+                element: <TransitionPowerPage />,
+                children: [
+                    {
+                        index: true,
+                        element: <EditVPPage />,
+                        loader: loadVP,
+                    },
+                    {
+                        path: ":Name",
+                        element: <ChangeVP />,
+                        loader: loadMemberVP,
+                        action: changeVPAction,
+                    },
+                ],
             },
         ],
     },

@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, json } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
 import {
     getExpiration,
