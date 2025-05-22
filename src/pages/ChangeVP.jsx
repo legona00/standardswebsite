@@ -1,6 +1,9 @@
 import { useLoaderData, Form, json, redirect } from "react-router-dom";
 import { useState } from "react";
 import { getToken } from "../util/auth";
+import InputMask from "react-input-mask";
+
+import classes from "./ChangeVP.module.css";
 
 export default function ChangeVP() {
     const data = useLoaderData();
@@ -17,25 +20,52 @@ export default function ChangeVP() {
         <Form method="PATCH">
             <h1>Change VP of Standards</h1>
             <h2>Don {name}</h2>
-            <div>
+            <div className={classes.container}>
                 <div>
-                    <h3>Phone Number:</h3>
-                    <input name="phoneNumber" defaultValue={phoneNumber} />
+                    <h3>Phone Number</h3>
+                    <InputMask
+                        mask="(999) 999-9999"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                    >
+                        {(inputProps) => (
+                            <input
+                                className={classes.inputbox}
+                                required
+                                type="tel"
+                                name="phoneNumber"
+                                pattern="\(\d{3}\)\s\d{3}-\d{4}"
+                                title="Enter full phone as (123) 456-7890"
+                                {...inputProps}
+                                defaultValue={phoneNumInit}
+                            />
+                        )}
+                    </InputMask>
                 </div>
                 <div>
-                    <h3>Venmo:</h3>@
-                    <input type="text" name="venmoTag" defaultValue={venmo} />
-                </div>
-                <div>
-                    <h3>CashApp:</h3>$
+                    <h3>Venmo</h3>
+                    <strong>@</strong>
                     <input
+                        className={classes.inputbox}
+                        type="text"
+                        name="venmoTag"
+                        defaultValue={venmo}
+                    />
+                </div>
+                <div>
+                    <h3>CashApp</h3>
+                    <strong>$</strong>
+                    <input
+                        className={classes.inputbox}
                         type="text"
                         name="cashAppTag"
                         defaultValue={cashApp}
                     />
                 </div>
             </div>
-            <button type="submit">Submit Changes</button>
+            <button type="submit" className={classes.submitBtn}>
+                Submit Changes
+            </button>
         </Form>
     );
 }

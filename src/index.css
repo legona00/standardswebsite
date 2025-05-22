@@ -61,3 +61,7 @@ p {
     font-weight: 500;
     font-size: clamp(1px, 3vw, 20px);
 }
+
+button:hover {
+    cursor: pointer;
+}
