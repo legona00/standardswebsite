@@ -68,6 +68,16 @@ export default function MainNavigation() {
                                     Edit Brothers
                                 </NavLink>
                             </li>
+                            <li>
+                                <NavLink
+                                    to="/transition-power"
+                                    className={({ isActive }) =>
+                                        isActive ? classes.active : undefined
+                                    }
+                                >
+                                    Transition Power
+                                </NavLink>
+                            </li>
                         </>
                     )}
                 </ul>

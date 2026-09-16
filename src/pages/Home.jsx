@@ -3,7 +3,6 @@ import { Suspense } from "react";
 
 import HomeBanner from "../components/HomeBanner";
 import Sanctions from "../components/Sanctions";
-import { sortStandards } from "../util/standards";
 
 export default function HomePage() {
     const sortedSanctionsBalances = useRouteLoaderData("root");
@@ -34,22 +33,22 @@ export default function HomePage() {
     );
 }
 
-//Load data for Contact information for HomeBanner and for Sanctions table
 export async function loader() {
-    const response = await fetch(
-        "https://1ydhatqodd.execute-api.us-east-2.amazonaws.com/items"
+    // Get the current VP of standards information
+    // (Balance, Excuses, Name, email, venmoTag, cashappTag Balance, isVP, )
+    const res = await fetch(
+        "https://1ydhatqodd.execute-api.us-east-2.amazonaws.com/vpstandards"
     );
 
-    if (!response.ok) {
+    if (!res.ok) {
         throw json(
             {
-                message: "Could not get sanction balances",
+                message: "Could not get VP data",
             },
             { status: 500 }
         );
     } else {
-        const resData = await response.json();
-        const sortedData = sortStandards(resData);
-        return sortedData;
+        const b = await res.json();
+        return b[0];
     }
 }

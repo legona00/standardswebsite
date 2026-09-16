@@ -12,7 +12,7 @@ export default function Sanctions({ title, children, rowTitles }) {
                     <thead>
                         <tr>
                             {rowTitles &&
-                                rowTitles.map(title => (
+                                rowTitles.map((title) => (
                                     <th key={title}>{title}</th>
                                 ))}
                         </tr>
