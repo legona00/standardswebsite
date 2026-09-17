@@ -1,19 +1,8 @@
-import { Await, useRouteLoaderData } from "react-router-dom";
-import { Suspense } from "react";
+import { useLoaderData } from "react-router-dom";
 import EditBrothers from "../components/EditBrothers";
 
 export default function EditBrothersPage() {
-    const sanctionsBalances = useRouteLoaderData("root");
+    const sanctionsBalances = useLoaderData();
 
-    return (
-        <>
-            <Suspense fallback={<p>Loading...</p>}>
-                <Await resolve={sanctionsBalances}>
-                    {(loadedSanctionsBalances) => (
-                        <EditBrothers balances={loadedSanctionsBalances} />
-                    )}
-                </Await>
-            </Suspense>
-        </>
-    );
+    return <EditBrothers balances={sanctionsBalances} />;
 }

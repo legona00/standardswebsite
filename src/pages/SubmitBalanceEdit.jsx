@@ -5,7 +5,7 @@ export async function action({ request }) {
     //Check for PUT
     const method = request.method;
     const data = await request.formData();
-    const emailChecked = data.get("emailChecked");
+    const emailChecked = data.get("emailChecked") === "true";
     const amount = parseInt(data.get("amount"));
     const operation = data.get("operation");
     const token = getToken();
@@ -80,7 +80,7 @@ export async function action({ request }) {
             //TODO Now send email if the operation is add and the email is checked
             if (operation === "add" && emailChecked) {
                 const subject = "Sanction Statement";
-                const emailBody = `Saludos Hermano,\n\nUnfortunately you have been sanctioned $${amount}. \nReason: ${reason} on ${date}\nPlease reach out to me if you have any questions regarding your sanction or would like to appeal.\n\nSPSJ,\nVP of Standards: Carlos Bernal\ntamufiastandards@gmail.com | (346) 218-4160\n`;
+                const emailBody = `Saludos Hermano,\n\nUnfortunately you have been sanctioned $${amount}. \nReason: ${reason} on ${date}\nPlease reach out to me if you have any questions regarding your sanction or would like to appeal.\n\nSPSJ,\nVP of Standards: Cayetano Garza\ntamufiastandards@gmail.com | (832) 998-2972\n`;
 
                 const response = await fetch(
                     `https://1ydhatqodd.execute-api.us-east-2.amazonaws.com/email/${name}`,
