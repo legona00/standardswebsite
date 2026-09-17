@@ -15,7 +15,8 @@ import EditSanctionsPage from "./pages/EditSanctions";
 import { action as submitBalanceAction } from "./pages/SubmitBalanceEdit";
 import { action as submitExcuseAction } from "./pages/SubmitExcuseEdit";
 
-import { checkAuthLoader, checkLoginLoader } from "./util/auth";
+import { checkLoginLoader } from "./util/auth";
+import { loadAdminItems } from "./util/admin";
 import EditExcusesPage from "./pages/EditExcuses";
 import EditBrothersPage from "./pages/EditBrothers";
 
@@ -40,16 +41,17 @@ const router = createBrowserRouter([
             },
             {
                 path: "edit",
-                loader: checkAuthLoader,
+                loader: loadAdminItems,
                 element: <EditSanctionsPage />,
             },
             {
                 path: "edit-excuses",
-                loader: checkAuthLoader,
+                loader: loadAdminItems,
                 element: <EditExcusesPage />,
             },
             {
                 path: "edit-brothers",
+                loader: loadAdminItems,
                 element: <EditBrothersPage />,
             },
             {
